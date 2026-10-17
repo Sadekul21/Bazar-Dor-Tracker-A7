@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Navlinks from "./Navlinks";
 
 export default function Navbar() {
   const today = new Intl.DateTimeFormat("bn-BD", {
@@ -61,6 +62,7 @@ export default function Navbar() {
         </div>
 
       </div>
+      <Navlinks/>
     </header>
   );
 }
