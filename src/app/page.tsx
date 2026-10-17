@@ -1,4 +1,6 @@
+
 import Hero from "@/components/home/Hero";
+import PriceChanges from "@/components/home/PriceChanges";
 import MarqueeSection from "@/components/Marquee";
 
 export default function Home() {
@@ -7,6 +9,8 @@ export default function Home() {
       <MarqueeSection />
         
       <Hero />
+       <PriceChanges />
+       
     </main>
   );
 }
