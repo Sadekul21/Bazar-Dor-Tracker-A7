@@ -1,10 +1,7 @@
-
 "use client";
 
 import { useState } from "react";
-import ProductCard, {
-  type Product,
-} from "@/components/products/ProductCard";
+import ProductCard, { type Product } from "@/components/products/ProductCard";
 import Link from "next/link";
 
 interface ProductSortProps {
@@ -50,18 +47,14 @@ const ProductSort = ({ products }: ProductSortProps) => {
 
       {/* Product Count */}
       <p className="my-5 text-sm text-gray-500">
-        মোট {products.length.toLocaleString("bn-BD")}টি
-        পণ্য দেখানো হচ্ছে
+        মোট {products.length.toLocaleString("bn-BD")}টি পণ্য দেখানো হচ্ছে
       </p>
 
       {/* Product Cards */}
       {sortedProducts.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {sortedProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
@@ -74,12 +67,12 @@ const ProductSort = ({ products }: ProductSortProps) => {
             এই ক্যাটাগরিতে এখন কোনো পণ্য নেই।
           </p>
 
-         <Link
-  href="/"
-  className="mt-5 inline-block rounded-lg bg-[#078747] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#066b39]"
->
-  হোম পেজে ফিরে যান
-</Link>
+          <Link
+            href="/"
+            className="mt-5 inline-block rounded-lg bg-[#078747] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#066b39]"
+          >
+            হোম পেজে ফিরে যান
+          </Link>
         </div>
       )}
     </section>
