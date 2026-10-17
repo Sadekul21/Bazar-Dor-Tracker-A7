@@ -1,10 +1,10 @@
-
+import MarqueeSection from "@/components/Marquee";
 
 export default function Home() {
   return (
-    <div>
-    
-      
-    </div>
+    <main>
+      <MarqueeSection />
+
+    </main>
   );
 }
