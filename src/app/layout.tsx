@@ -1,31 +1,38 @@
+
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
 
 const notoSerifBengali = Noto_Serif_Bengali({
-  
+ 
   subsets: ["latin","bengali"],
 });
 
 export const metadata: Metadata = {
   title: "বাজার দর | Bazar Dor",
   description:
-    "বাংলাদেশের নিত্যপ্রয়োজনীয় পণ্যের দৈনিক বাজারদর, দামের বৃদ্ধি ও হ্রাস দেখুন।",
+    "বাংলাদেশের প্রতিদিনের বাজারদর, পণ্যের মূল্য পরিবর্তন ও বাজারভিত্তিক দামের তথ্য এক জায়গায়।",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+
   return (
-    <html
-      lang="en"
-      data-theme="light"
-      className={`${notoSerifBengali.className} h-full antialiased`}
+    <html lang="bn"
+     data-theme="light"
     >
-      <body className="min-h-full flex flex-col">
-         <Navbar/>
-        {children}
-       
-        </body>
+      <body
+        className={`${notoSerifBengali.className} flex min-h-screen flex-col antialiased`}
+      >
+        <Navbar />
+
+        <div className="flex-1">
+          {children}
+        </div>
+
+        <Footer />
+      </body>
     </html>
   );
 }
