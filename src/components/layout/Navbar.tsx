@@ -48,14 +48,14 @@ export default function Navbar() {
        
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <Link
-         href="/signin"
+         href="/sign-in"
         className="rounded-lg border border-[#B9DECA] bg-[#EAF6EF] px-3 py-2.5 text-xs font-semibold text-[#076B3A] transition-colors duration-200 hover:border-[#078747] hover:bg-[#D7EEE0] sm:px-5 sm:text-sm"
              >
         সাইন ইন
          </Link>
 
           <Link
-            href="/signup"
+            href="/sign-up"
             className="rounded-lg bg-[#078747] px-3 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#066b39] hover:shadow-md sm:px-5 sm:text-sm"
           >
             সাইন আপ
