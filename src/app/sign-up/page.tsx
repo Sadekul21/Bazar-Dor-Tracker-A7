@@ -70,6 +70,21 @@ const SignUpPage = () => {
     }
   };
 
+  const handleGitHubSignUp = async () => {
+    try {
+      const data = await authClient.signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+
+      if (data.error) {
+        toast.error("GitHub দিয়ে অ্যাকাউন্ট তৈরি করা যায়নি");
+      }
+    } catch {
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
+  };
+
   const inputStyle =
     "input w-full h-11 bg-[#f9fbf9] border-[#dce7df] rounded-lg text-sm focus:border-[#078747] focus:outline-none";
 
@@ -186,6 +201,20 @@ const SignUpPage = () => {
               height={20}
             />
             Google দিয়ে সাইন আপ করুন
+          </button>
+
+          <button
+            type="button"
+            onClick={handleGitHubSignUp}
+            className="flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-[#dce7df] bg-white text-sm font-medium text-[#243e2d] transition hover:bg-[#f1f6f2]"
+          >
+            <Image
+              src="/github.png"
+              alt="GitHub"
+              width={20}
+              height={20}
+            />
+            GitHub দিয়ে সাইন আপ করুন
           </button>
 
           <p className="text-center text-sm text-[#65766a]">
