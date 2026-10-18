@@ -5,10 +5,19 @@ import { mongodbAdapter } from "@better-auth/mongo-adapter";
 const client = new MongoClient(process.env.MONGODB_URL as string);
 const db = client.db("bazar-dor");
 
+console.log("Google ID:", !!process.env.GOOGLE_CLIENT_ID);
+console.log("Google Secret:", !!process.env.GOOGLE_CLIENT_SECRET);
 export const auth = betterAuth({
     emailAndPassword: { 
     enabled: true, 
     },
+     socialProviders: {
+        google: { 
+
+            clientId: process.env.GOOGLE_CLIENT_ID as string, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+        },
+    }, 
   database: mongodbAdapter(db, {
     client,
   }),

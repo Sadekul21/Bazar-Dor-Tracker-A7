@@ -1,6 +1,7 @@
 
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -37,6 +38,21 @@ const SignInPage = () => {
       toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const data = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+
+      if (data.error) {
+        toast.error("Google দিয়ে সাইন ইন করা যায়নি");
+      }
+    } catch {
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
     }
   };
 
@@ -102,6 +118,26 @@ const SignInPage = () => {
             className="w-full rounded-lg bg-[#078747] py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#066b39] disabled:opacity-60"
           >
             {loading ? "অপেক্ষা করুন..." : "সাইন ইন"}
+          </button>
+
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-[#dce9df]"></div>
+            <span className="text-xs text-gray-400">অথবা</span>
+            <div className="h-px flex-1 bg-[#dce9df]"></div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="flex h-11 w-full items-center justify-center gap-3 rounded-lg border border-[#dce7df] bg-white text-sm font-medium text-[#243e2d] transition hover:bg-[#f1f6f2]"
+          >
+            <Image
+              src="/google.png"
+              alt="Google"
+              width={20}
+              height={20}
+            />
+            Google দিয়ে সাইন ইন করুন
           </button>
 
           <p className="text-center text-sm text-[#65766a]">
