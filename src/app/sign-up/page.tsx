@@ -90,6 +90,7 @@ const SignUpPage = () => {
 
   return (
     <main className="bg-[#f1f6f2] px-4 py-10">
+        
       <div className="mx-auto max-w-sm">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-[#193a2a]">

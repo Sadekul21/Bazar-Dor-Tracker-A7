@@ -1,6 +1,8 @@
 
 "use client";
 
+import { Suspense } from "react";
+import LoginRedirectToast from "@/components/auth/LoginRedirectToast";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +13,21 @@ import { authClient } from "@/lib/auth-client";
 const SignInPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  const getRedirectUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    const redirectTo = params.get("redirect");
+
+    if (
+      redirectTo?.startsWith("/") &&
+      !redirectTo.startsWith("//") &&
+      !redirectTo.includes("\\")
+    ) {
+      return redirectTo;
+    }
+
+    return "/";
+  };
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +49,7 @@ const SignInPage = () => {
       }
 
       toast.success("সাইন ইন সফল হয়েছে!");
-      router.push("/");
+      router.push(getRedirectUrl());
       router.refresh();
     } catch {
       toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
@@ -45,7 +62,7 @@ const SignInPage = () => {
     try {
       const data = await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/",
+        callbackURL: getRedirectUrl(),
       });
 
       if (data.error) {
@@ -60,7 +77,7 @@ const SignInPage = () => {
     try {
       const data = await authClient.signIn.social({
         provider: "github",
-        callbackURL: "/",
+        callbackURL: getRedirectUrl(),
       });
 
       if (data.error) {
@@ -76,6 +93,10 @@ const SignInPage = () => {
 
   return (
     <main className="bg-[#f1f6f2] px-4 py-10">
+      <Suspense fallback={null}>
+        <LoginRedirectToast />
+      </Suspense>
+
       <div className="mx-auto max-w-sm">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-[#193a2a]">

@@ -1,8 +1,11 @@
 
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 import ProductSummary from "@/components/products/ProductSummary";
 import MarketPrices from "@/components/products/MarketPrices";
+
 import type { Product } from "@/types/product";
 
 interface ProductPageProps {
@@ -12,14 +15,24 @@ interface ProductPageProps {
 const ProductDetails = async ({ params }: ProductPageProps) => {
   const { slug } = await params;
 
- 
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect(
+      `/sign-in?redirect=${encodeURIComponent(
+        `/product/${slug}`
+      )}&message=login-required`
+    );
+  }
+
   const productId = Number(slug);
 
   if (!Number.isInteger(productId) || productId <= 0) {
     notFound();
   }
 
-  
   const res = await fetch(
     `https://openapi.programming-hero.com/api/bazardor/products/${productId}`
   );
@@ -42,7 +55,7 @@ const ProductDetails = async ({ params }: ProductPageProps) => {
     <main className="min-h-screen bg-[#f3f7f3]">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
 
-        {/* Breadcrumb */}
+        
         <nav
           aria-label="Breadcrumb"
           className="mb-6 flex flex-wrap items-center gap-2 text-sm"
